@@ -4,7 +4,7 @@
   },
   "name": "flexrml-node",
   "description": "Node.js version of FlexRML, a flexible and memory efficient RML processor.",
-  "version": "1.0",
+  "version": "1.0.0",
   "author": "Michael Freund",
   "main": "index.js"
 }
