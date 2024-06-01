@@ -1,6 +1,6 @@
 # flex-rml-node
 
-**flex-rml-node** is a Node.js compatible version of FlexRML built with node-gyp. This implementation is based on the [ESP32 version of FlexRML](https://github.com/wintechis/flex-rml-esp32/tree/main), meaning all data is mapped in memory and performed in a single thread.
+**flex-rml-node** is a Node.js compatible version of FlexRML built with node-gyp. This implementation is based on the [ESP32 version of FlexRML](https://github.com/wintechis/flex-rml-esp32/tree/main), meaning all data is mapped in memory and performed in a single thread. The package is only tested on Ubuntu 22.04 using node v20.10.0. If you use Windows try using flex-rml-node in WSL.
 
 ## How to Use
 
