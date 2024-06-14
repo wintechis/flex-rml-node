@@ -10,7 +10,7 @@
 const flexrml = require("flexrml");
 ```
 
-### Map RDF data with FlexRMl
+### Map RDF data with FlexRML
 To map data using flexrml-node, call the mapData function:
 ```javascript
 const result = flexrml.mapData(input, rmlRule);
