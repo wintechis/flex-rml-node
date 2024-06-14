@@ -74,7 +74,7 @@ uint32_t performCity32Hash(const NQuad &quad) {
 }
 #endif
 
-bool get_index_of_element(const std::vector<std::string> &vec, const std::string &value, uint &index) {
+bool get_index_of_element(const std::vector<std::string> &vec, const std::string &value, int &index) {
   auto it = std::find(vec.begin(), vec.end(), value);
   if (it != vec.end()) {
     index = it - vec.begin();
@@ -108,7 +108,7 @@ std::string fill_in_template(
   std::string generated_value_last;
 
   for (size_t i = 0; i < query_strings.size(); ++i) {
-    uint index = 0;
+    int index = 0;
     if (!get_index_of_element(split_header, query_strings[i], index)) {
       throw_error("Error: Element not found in csv.");
     }
@@ -977,13 +977,13 @@ std::string generate_object_with_nested_loop_join(
     std::vector<std::string> split_header_parent = split_csv_line(header_parent, ',');
 
     // Get index of element in header
-    uint index = 0;
+    int index = 0;
     if (!get_index_of_element(split_header_parent, objectMapInfo.parent, index)) {
       throw_error("Element not found -> Join not working!");
     }
 
     // Generate value
-    uint index_child = 0;
+    int index_child = 0;
     if (!get_index_of_element(split_header_child, objectMapInfo.child, index_child)) {
       throw_error("Element not found -> Join not working!");
     }
@@ -1033,7 +1033,7 @@ std::vector<std::string> generate_object_with_nested_loop_join_full(
     CsvReader &reader_parent) {
   std::vector<std::string> generated_objects;
   if (!objectMapInfo.template_str.empty()) {
-    uint index_child = 0;
+    int index_child = 0;
     if (!get_index_of_element(split_header_child, objectMapInfo.child, index_child)) {
       throw_error("Element not found -> Join not working!");
     }
@@ -1055,7 +1055,7 @@ std::vector<std::string> generate_object_with_nested_loop_join_full(
     std::vector<std::string> split_header_parent = split_csv_line(header_parent, ',');
 
     // Get index of element in header
-    uint index_parent = 0;
+    int index_parent = 0;
     if (!get_index_of_element(split_header_parent, objectMapInfo.parent, index_parent)) {
       throw_error("Element not found -> Join not working!");
     }
@@ -1098,7 +1098,7 @@ std::vector<std::string> generate_object_with_hash_join_full(
     const std::unordered_map<std::string, std::vector<std::vector<std::string>>> &parent_file_index_full) {
   std::vector<std::string> generated_objects;
   if (!objectMapInfo.template_str.empty()) {
-    uint index_child = 0;
+    int index_child = 0;
     if (!get_index_of_element(split_header_child, objectMapInfo.child, index_child)) {
       throw_error("Element not found -> Join not working!");
     }
@@ -1151,7 +1151,7 @@ std::string generate_object_with_hash_join(
   generated_object = fill_in_template(objectMapInfo.template_str, split_data, split_header);
 
   // GENERATE VALUE
-  uint index_old = 0;
+  int index_old = 0;
   if (!get_index_of_element(split_header, objectMapInfo.child, index_old)) {
     throw_error("Element not found -> Join not working!");
   }

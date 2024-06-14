@@ -38,7 +38,7 @@
 #endif
 
 // Number used when expanding maps
-constexpr uint initial_blank_node_nr = 18914;
+constexpr int initial_blank_node_nr = 18914;
 
 #ifndef ARDUINO
 inline void hash_combine_64(uint64_t &seed, uint64_t value) {

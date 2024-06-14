@@ -1,9 +1,6 @@
 {
-  "devDependencies": {
-    "node-gyp": "^10.1.0"
-  },
   "name": "flexrml-node",
-  "description": "Node.js version of FlexRML, a flexible and memory efficient RML processor.",
+  "description": "WebAssembly version of FlexRML, a flexible and memory efficient RML processor.",
   "version": "1.0.1",
   "author": "Michael Freund",
   "main": "index.js",

@@ -1,5 +1,6 @@
-const flexrml = require("flexrml-node");
+const flexrml = require("./flexrml")
 
+// sd:name must be key (in TriplesMap1 csv_data_1); data to map must be a string in csv format placed as value
 const rmlRule = `@prefix rr: <http://www.w3.org/ns/r2rml#> .
 @prefix rml: <http://semweb.mmlab.be/ns/rml#> .
 @prefix ql: <http://semweb.mmlab.be/ns/ql#> .
@@ -196,7 +197,13 @@ const input = {
   csv_data_3: csv_data_3,
 };
 
+async function main(){
+  
 // Map data to RDF
-const result = flexrml.map(input, rmlRule);
+const result = await flexrml.mapData(input, rmlRule);
 
-console.log(result);
+console.log("#### RDF DATA: ####\n",result);
+
+}
+
+main()

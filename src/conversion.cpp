@@ -1,75 +1,43 @@
-#include <node.h>
-#include <v8.h>
+#include <emscripten/bind.h>
 #include <map>
 #include <string>
-#include "flexinput.h"
+#include <sstream>
 
-namespace demo {
+#include "FlexRML.h"
 
-using v8::Exception;
-using v8::FunctionCallbackInfo;
-using v8::Isolate;
-using v8::Local;
-using v8::Object;
-using v8::String;
-using v8::Value;
-using v8::Array;
-using v8::Context;
 
-void Method(const FunctionCallbackInfo<Value>& args) {
-  Isolate* isolate = args.GetIsolate();
-  Local<Context> context = isolate->GetCurrentContext();
-
-  if (args.Length() < 2) {
-    isolate->ThrowException(Exception::TypeError(
-        String::NewFromUtf8(isolate, "Wrong number of arguments").ToLocalChecked()));
-    return;
-  }
-
-  if (!args[0]->IsObject() || !args[1]->IsString()) {
-    isolate->ThrowException(Exception::TypeError(
-        String::NewFromUtf8(isolate, "Arguments must be an object and a string").ToLocalChecked()));
-    return;
-  }
-
-  Local<Object> obj = args[0]->ToObject(context).ToLocalChecked();
-  Local<Array> propertyNames = obj->GetOwnPropertyNames(context).ToLocalChecked();
-
-  std::map<std::string, std::string> input_data;
-
-  for (unsigned int i = 0; i < propertyNames->Length(); i++) {
-    Local<Value> key = propertyNames->Get(context, i).ToLocalChecked();
-    Local<Value> value = obj->Get(context, key).ToLocalChecked();
-
-    if (!value->IsString()) {
-      isolate->ThrowException(Exception::TypeError(
-          String::NewFromUtf8(isolate, "All properties must be strings").ToLocalChecked()));
-      return;
-    }
-
-    v8::String::Utf8Value keyStr(isolate, key);
-    v8::String::Utf8Value valueStr(isolate, value);
-
-    std::string cppKey(*keyStr);
-    std::string cppValue(*valueStr);
-
-    input_data[cppKey] = cppValue;
-  }
-
-  Local<Value> additionalStrVal = args[1];
-  v8::String::Utf8Value additionalStr(isolate, additionalStrVal);
-  std::string cppAdditionalStr(*additionalStr);
-
-  // Call function
-  std::string result = process_input(input_data, cppAdditionalStr);
-
-  args.GetReturnValue().Set(String::NewFromUtf8(isolate, result.c_str()).ToLocalChecked());
+// Function to convert NQuad to string
+std::string NQuadToString(const NQuad& nquad) {
+  std::ostringstream oss;
+  oss << nquad.subject << " "
+      << nquad.predicate << " "
+      << nquad.object << " "
+      << nquad.graph << "\n";
+  return oss.str();
 }
 
-void Initialize(Local<Object> exports) {
-  NODE_SET_METHOD(exports, "map", Method);
+// Main processing function
+std::string process_input(const std::map<std::string, std::string> &input_data, const std::string &rml_rule) {
+  std::string rml = rml_rule;
+  std::map<std::string, std::string> input = input_data;
+
+  // Call FlexRML map_data in memory function
+  std::unordered_set<NQuad> generated_quads = map_data(rml, input);
+
+  std::string result = "";
+  for (const auto& quad : generated_quads) {
+    result += NQuadToString(quad);
+  }
+
+  return result;
 }
 
-NODE_MODULE(NODE_GYP_MODULE_NAME, Initialize)
+std::string Method(const std::map<std::string, std::string> &input_data, const std::string &rml_rule) {
+  return process_input(input_data, rml_rule);
+}
 
-}  // namespace demo
+// Binding code
+EMSCRIPTEN_BINDINGS(my_module) {
+  emscripten::function("Method", &Method);
+  emscripten::register_map<std::string, std::string>("MapStringString");
+}
