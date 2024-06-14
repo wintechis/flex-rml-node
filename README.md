@@ -1,6 +1,6 @@
 # FlexRML-node
 
-**FlexRML-node** is a Node.js compatible version of FlexRML compiled to WebAssembly. This implementation is based on the [ESP32 version of FlexRML](https://github.com/wintechis/flex-rml-esp32/tree/main), meaning all data is mapped in memory and performed in a single thread. The package is only tested on Ubuntu 24.04 using node v22.3.0.
+**FlexRML-node** is a Node.js compatible version of FlexRML compiled to WebAssembly. This implementation is based on the [ESP32 version of FlexRML](https://github.com/wintechis/flex-rml-esp32/tree/main), meaning all data is mapped in memory and performed in a single thread. The package is tested on Ubuntu 24.04 using node v22.3.0 and Windows 10 using node v16.13.2.
 
 ## How to Use
 
