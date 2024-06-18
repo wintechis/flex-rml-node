@@ -7,13 +7,13 @@
 ### Loading the Module
 
 ```javascript
-const flexrml = require("flexrml");
+const flexrml = require("flexrml-node");
 ```
 
 ### Map RDF data with FlexRML
 To map data using flexrml-node, call the mapData function:
 ```javascript
-const result = flexrml.mapData(input, rmlRule);
+const result = await flexrml.mapData(input, rmlRule);
 ```
 - `rmlRule`: The definition of the RML rule as string.
 - `input`: An object where the dataset name is the key, and the input data to map is the value in string format. Following the convention introduced by [Dasoulas et al.](https://lirias.kuleuven.be/retrieve/718052) for mapping in memeory datasources. Currently, only CSV data is supported as input for flexrml-node.
