@@ -12,7 +12,7 @@ std::string NQuadToString(const NQuad& nquad) {
   oss << nquad.subject << " "
       << nquad.predicate << " "
       << nquad.object << " "
-      << nquad.graph << ".\n";
+      << nquad.graph << " .\n";
   return oss.str();
 }
 
