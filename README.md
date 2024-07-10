@@ -26,7 +26,7 @@ flexrml-node can be built from source using [emscripten](https://emscripten.org/
 
 To compile make sure your are in the flex-rml-node directory and execute this command:
 ```
-emcc src/FlexRML.cpp src/base64.cpp src/byte_source.cpp src/conversion.cpp src/csv_reader.cpp src/custom_io.cpp src/env.cpp src/flexinput.cpp src/n3.cpp src/node.cpp src/rdf_parser.cpp src/rdf_vector_helper.cpp src/reader.cpp src/rml_extractor.cpp src/string.cpp src/string_helper.cpp src/system.cpp src/termtype_helper.cpp src/uri.cpp src/writer.cpp -o flex.js -s WASM=1 -s MODULARIZE=1 -s EXPORT_NAME="createModule" -s ENVIRONMENT=node -O3 --bind
+emcc src/FlexRML.cpp src/base64.cpp src/byte_source.cpp src/conversion.cpp src/csv_reader.cpp src/custom_io.cpp src/env.cpp src/flexinput.cpp src/n3.cpp src/node.cpp src/rdf_parser.cpp src/rdf_vector_helper.cpp src/reader.cpp src/rml_extractor.cpp src/string.cpp src/string_helper.cpp src/system.cpp src/termtype_helper.cpp src/uri.cpp src/writer.cpp -o flex.js -s WASM=1 -s MODULARIZE=1 -s EXPORT_NAME="createModule" -s ALLOW_MEMORY_GROWTH=1 -s ENVIRONMENT=node -O3 --bind
 ```
 
 The file `index.js` contains a wrapper for the WebAssembly code and handles data transformations.
